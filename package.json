@@ -1,0 +1,19 @@
+{
+    "name": "ChuckNorrisAthon",
+    "version": "0.0.1-2",
+    "private": true,
+    "dependencies": {
+        "express": "2.5.10",
+        "jade": ">= 0.26.1",
+        "socket.io": ">= 0.9.6",
+        "moniker": ">= 0.1.2",
+        "forever": ">= 0.10.8"
+    },
+    "subdomain": "chucknorrisathon",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "engines": {
+        "node": "0.8.x"
+    }
+}
