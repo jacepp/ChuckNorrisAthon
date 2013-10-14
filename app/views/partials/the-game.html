@@ -1,0 +1,14 @@
+
+<div class="container the-game">
+  <div class="row">
+    <div class="col-md-12 joke-container">
+      <p ng-hide="joke" class="loading text-center">Loading...</p>
+      <p ng-model="joke" ng-bind-html="joke" class="joke">{{ joke }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <textarea ng-model="player_input" placeholder="Type here..." autofocus="autofocus" class="player-input"></textarea>
+    </div>
+  </div>
+</div>

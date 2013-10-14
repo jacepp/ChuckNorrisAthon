@@ -1,0 +1,8 @@
+.container.the-game
+  .row
+    .col-md-12.joke-container
+      p.loading.text-center(ng-hide="joke") Loading...
+      p.joke(ng-model="joke", ng-bind-html="joke") {{ joke }}
+  .row
+    .col-md-12
+      textarea.player-input(ng-model="player_input", placeholder="Type here...", autofocus)

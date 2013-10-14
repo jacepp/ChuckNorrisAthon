@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-md-12
+      h4.player-count.text-center Players <span>({{ players.length }})</span>
+      ul.player-list
+        li(ng-repeat="player in players = (iAm())")
+          p.name <span class="glyphicon glyphicon-user"></span> {{ player.name }}
+          .pull-right
+            p.wins <span>W:</span> {{ player.wins }}
+            p.losses <span>L:</span> {{ player.losses }}

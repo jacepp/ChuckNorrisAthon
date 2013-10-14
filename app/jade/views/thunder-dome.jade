@@ -1,0 +1,18 @@
+.container.thunder-dome
+  .row
+    .col-md-8
+      ng-include(src="'views/partials/the-game.html'", ng-controller="TheGameCtrl")
+      .container
+        .row.leaderboard
+          h4 Leaderboard
+          .col-md-4.wins
+            h5.title Wins
+            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ wins.name }}</span> ({{ wins.total }})
+          .col-md-4.streak
+            h5.title Win Streak
+            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ streak.name }}</span> ({{ streak.total }})
+          .col-md-4.losses
+            h5.title Losses
+            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ losses.name }}</span> ({{ losses.total }})
+    .col-md-4
+      ng-include(src="'views/partials/players.html'", ng-controller="PlayersCtrl")

@@ -1,0 +1,169 @@
+$iconSpritePath: "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+
+@import "compass";
+@import "sass-bootstrap/lib/bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900);
+@include font-face("Glyphicons Halflings", font-files("glyphicons-halflings-regular.eot", "glyphicons-halflings-regular.eot?#iefix", "glyphicons-halflings-regular.woff", "glyphicons-halflings-regular.ttf", "glyphicons-halflings-regular.svg#wf"));
+/* Put your CSS here */
+$node-green: #8BC84B;
+
+html,
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color: #fdfdfd;
+}
+
+.main {
+  &.title {
+    margin-bottom: 60px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: darken($node-green, 35%);
+  }
+  &.form {
+    .form-control {
+      height: 60px;
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+    .btn {
+      margin-bottom: 60px;
+      padding: 11px 12px 10px;
+      background-color: $node-green;
+      font-size: 26px;
+      &:hover {
+        background-color: darken($node-green, 5%);
+      }
+    }
+  }
+  &.intro {
+    font-size: 18px;
+    color: darken($node-green, 35%);
+  }
+}
+
+.thunder-dome {
+  padding-top: 60px;
+}
+
+.leaderboard {
+  text-align: center;
+  .wins,
+  .losses,
+  .streak {
+    padding: 0 0 40px 0;
+    background-color: darken($node-green, 35%);
+    @include border-radius(4px);
+  }
+  .wins,
+  .streak {
+    border-right: 1px solid #fdfdfd;
+  }
+  h4,
+  h5 {
+    font-weight: 900;
+  }
+  h4 {
+    padding-top: 40px;
+  }
+  h5 {
+    margin-top: 0;
+    margin-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 20px;
+    background-color: $node-green;
+    @include border-top-radius(4px);
+  }
+  .player,
+  .total {
+    display: inline-block;
+    font-size: 22px;
+    color: $node-green;
+  }
+  .player {
+    font-weight: 700;
+  }
+}
+
+.the-game {}
+
+.joke-container {
+  margin-bottom: 60px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  .loading,
+  .joke {
+    font-size: 30px;
+    color: darken($node-green, 35%);
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+textarea {
+  height: 140px;
+  width: 100%;
+  margin-bottom: 60px;
+  font-size: 20px;
+  resize: none;
+  border: 1px solid #aaa;
+  @include border-radius(4px);
+  &:focus {
+    border: 1px solid $node-green;
+  }
+}
+
+.player-count {
+  font-weight: 900;
+  color: darken($node-green, 35%);
+  > span {
+    color: $node-green;
+  }
+}
+
+.player-list {
+  max-height: 930px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  > li {
+    padding: 20px 15px;
+    color: $node-green;
+    background-color: darken($node-green, 35%);
+    border-bottom: 1px solid $node-green;
+    &:first-child {
+      color: darken($node-green, 35%);
+      background-color: $node-green;
+      border-bottom: none;
+      @include border-top-radius(4px);
+    }
+    &:last-child {
+      border-bottom: none;
+      @include border-bottom-radius(4px);
+    }
+    p {
+      margin: 0;
+      display: inline-block;
+      font-size: 18px;
+    }
+    .name {
+      font-weight: 700;
+    }
+    .wins,
+    .losses {
+      > span {
+       font-weight: 700;
+      }
+    }
+    .wins {
+      padding-right: 15px;
+    }
+  }
+}
