@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <textarea ng-model="player_input" placeholder="Type here..." autofocus="autofocus" class="player-input"></textarea>
+      <textarea ng-model="playerInput" placeholder="Type here..." on-keyup="capture(playerInput)" class="player-input">{{ playerInput }}</textarea>
     </div>
   </div>
 </div>

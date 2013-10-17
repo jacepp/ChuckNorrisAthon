@@ -97,12 +97,19 @@ body {
   .loading,
   .joke {
     font-size: 30px;
-    color: darken($node-green, 35%);
+    color: #999;
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    .win {
+      color: $node-green;
+    }
+    .fail {
+      color: white;
+      background-color: red;
+    }
   }
 }
 
