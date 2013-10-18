@@ -97,7 +97,8 @@ body {
   .loading,
   .joke {
     font-size: 30px;
-    color: #999;
+    font-weight: 900;
+    color: #ccc;
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -107,8 +108,11 @@ body {
       color: $node-green;
     }
     .fail {
-      color: white;
-      background-color: red;
+      color: #e74c3c;
+    }
+    .leader {
+      color: #fdfdfd;
+      background-color: darken($node-green, 35%);
     }
   }
 }

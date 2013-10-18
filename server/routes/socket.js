@@ -1,5 +1,6 @@
 var leadPlayer = '';
 var playerStreak = null;
+var jokePersist = null;
 
 var playerList = (function () {
   var players = {};
@@ -59,6 +60,22 @@ module.exports = function (socket) {
     socket.emit('game:players', players);
   });
 
+  socket.on('game:init', function () {
+    (function loop() {
+      if (io.sockets.clients().filter(filterNullValues).length < 2) {
+        console.log(io.sockets.clients().filter(filterNullValues).length)
+        setTimeout(function () { loop() }, 1000);
+      } else {
+        if(!jokePersist) {
+          getJoke();
+        } else {
+          socket.emit('game:newcomer', jokePersist);
+        }
+        return;
+      }
+    }());
+  });
+
   socket.on('player:winner', function () {
     var winner = socket.name
 
@@ -79,38 +96,50 @@ module.exports = function (socket) {
     io.sockets.emit('game:winner', winner);
   });
 
+  socket.on('game:reset', function () {
+    getJoke();
+  });
+  
   socket.on('compare:inputs', function (data) {
     if(data.length > leadPlayer.length) {
-      socket.broadcast.emit('player:lead', { player: socket.name, lead: data });
+      io.sockets.emit('player:lead', { player: socket.name, lead: data });
       leadPlayer = data;
     }
   });
 
-
-
-
-  // notify other clients that a new user has joined
-  // socket.broadcast.emit('user:join', {
-  //   name: name
-  // });
-
-  // broadcast a user's message to other users
-  // socket.on('send:message', function (data) {
-  //   socket.broadcast.emit('send:message', {
-  //     user: name,
-  //     text: data.message
-  //   });
-  // });
-
-
-
-  // clean up when a player leaves, and broadcast it to other players
   socket.on('disconnect', function () {
     io.sockets.emit('player:left', {
       name: socket.name
     });
     playerList.free(socket.name);
   });
+
+
+
+  function filterNullValues(i) {
+    return (i != null);
+  }
+
+  function getJoke() {
+    var options = {
+      host: 'api.icndb.com',
+      path: '/jokes/random',
+    };
+
+    http.get(options).on('response', function (response) {
+      var body = '';
+      response.on('data', function (chunk) {
+        body += chunk;
+        return;
+      });
+      response.on('end', function () {
+        jokePersist = body;
+        io.sockets.emit('game:new', body);
+        return;
+      });
+    });
+    return;
+  }
 
   function playersFromSockets() {
     var players = [];

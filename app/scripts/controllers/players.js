@@ -6,11 +6,11 @@ angular.module('chuckNorrisAthonApp')
     socket.emit('player:list');
 
     socket.on('game:players', function (data) {
-      $scope.players = data;
+      $scope.players = data || [];
 
       var check = false;
       angular.forEach($scope.players, function(value, key){
-        if(value.name === $scope.$parent.$parent.playerName) {
+        if(value.name === $scope.$parent.playerName) {
           check = true;
         }
       });
@@ -45,10 +45,10 @@ angular.module('chuckNorrisAthonApp')
       var array = $scope.players || [];
 
       function compare(a) {
-        if (a.name !== $scope.$parent.$parent.playerName) {
+        if (a.name !== $scope.$parent.playerName) {
           return 1;
         }
-        if (a.name === $scope.$parent.$parent.playerName){
+        if (a.name === $scope.$parent.playerName){
           return -1;
         }
         return 0;
