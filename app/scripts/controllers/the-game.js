@@ -61,8 +61,15 @@ angular.module('chuckNorrisAthonApp')
       }
     });
 
-
-
+    //
+    //
+    // Need to check if <span class="leader"></span> is within 
+    // the Joke STRING and account for it if it is.
+    // 
+    // Make it so the <span class="win"></span> doesn't wrap the whole 
+    // phrase.
+    // 
+    // 
     $scope.capture = function (playerInput) {
       var checkInput = playerInput || '';
       var checkAgainst = $scope.jokeCheck;
@@ -72,12 +79,19 @@ angular.module('chuckNorrisAthonApp')
         if(checkIfCorrect === $scope.jokeCheck) {
           socket.emit('player:winner');
         }
-        $scope.correct = checkIfCorrect;
-        checkAgainst = checkAgainst.substr(checkInput.length);
-        $scope.charsLeft = checkAgainst;
-        $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ $scope.charsLeft;
-        $scope.sansLeader = $scope.joke;
-        socket.emit('compare:inputs', checkInput);
+
+        if($scope.joke.length === $scope.jokeCheck.length) {
+          $scope.correct = checkIfCorrect;
+          $scope.charsLeft = checkAgainst.substr(checkInput.length);
+          $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ $scope.charsLeft;
+          $scope.sansLeader = $scope.joke;
+          socket.emit('compare:inputs', checkInput);  
+        } else {
+          $scope.correct = $scope.joke.slice(0, $scope.joke.length);
+          $scope.charsLeft = $scope.joke.substr($scope.joke.length);
+          $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ $scope.charsLeft;
+          socket.emit('compare:inputs', checkInput);
+        }
       } else {
         if($scope.correct) {
           $scope.joke = '<span class="win">'+ $scope.correct +'</span><span class="fail">'+ $scope.charsLeft +'</span>';
