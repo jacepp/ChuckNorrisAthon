@@ -97,9 +97,10 @@ module.exports = function (socket) {
   });
 
   socket.on('game:reset', function () {
+    leadPlayer = '';
     getJoke();
   });
-  
+
   socket.on('compare:inputs', function (data) {
     if(data.length > leadPlayer.length) {
       io.sockets.emit('player:lead', { player: socket.name, lead: data });
