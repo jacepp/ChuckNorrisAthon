@@ -4,7 +4,8 @@ angular.module('chuckNorrisAthonApp')
   .controller('TheGameCtrl', function ($scope, $http, socket) {
     $scope.playerInput = '';
     $scope.sansLeader = '';
-    
+    $scope.leadChar = '';
+
     socket.emit('game:init');
 
     socket.forward('game:new', $scope);
@@ -34,10 +35,9 @@ angular.module('chuckNorrisAthonApp')
     socket.forward('player:lead', $scope);
     $scope.$on('socket:player:lead', function (ev, data) {
       if(data.player !== $scope.$parent.playerName) {
-        var lastChar = data.lead.substr(data.lead.length - 1);
+        $scope.leadChar = data.lead.substr(data.lead.length - 1);
         var firstSlice = '';
         var secondSlice = '';
-        console.log($scope.sansLeader)
 
         switch($scope.sansLeader.length - $scope.jokeCheck.length) {
           case 25:
@@ -51,25 +51,16 @@ angular.module('chuckNorrisAthonApp')
           case 51:
             firstSlice = $scope.sansLeader.slice(0, data.lead.length + 43);
             secondSlice = $scope.sansLeader.slice(data.lead.length + 44);
-            break; 
+            break;
           default:
             firstSlice = $scope.sansLeader.slice(0, data.lead.length - 1);
             secondSlice = $scope.sansLeader.slice(data.lead.length);
             break;
         }
-        $scope.joke = firstSlice +'<span class="leader">'+ lastChar +'</span>'+ secondSlice;
+        $scope.joke = firstSlice +'<span class="leader">'+ $scope.leadChar +'</span>'+ secondSlice;
       }
     });
 
-    //
-    //
-    // Need to check if <span class="leader"></span> is within 
-    // the Joke STRING and account for it if it is.
-    // 
-    // Make it so the <span class="win"></span> doesn't wrap the whole 
-    // phrase.
-    // 
-    // 
     $scope.capture = function (playerInput) {
       var checkInput = playerInput || '';
       var checkAgainst = $scope.jokeCheck;
@@ -80,19 +71,40 @@ angular.module('chuckNorrisAthonApp')
           socket.emit('player:winner');
         }
 
-        if($scope.joke.length === $scope.jokeCheck.length) {
-          $scope.correct = checkIfCorrect;
-          $scope.charsLeft = checkAgainst.substr(checkInput.length);
+        $scope.correct = checkIfCorrect;
+        $scope.charsLeft = checkAgainst.substr(checkInput.length);
+
+        if($scope.joke.indexOf('<span class="leader">') === -1) {
           $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ $scope.charsLeft;
           $scope.sansLeader = $scope.joke;
-          socket.emit('compare:inputs', checkInput);  
+          socket.emit('compare:inputs', checkInput);
         } else {
-          $scope.correct = $scope.joke.slice(0, $scope.joke.length);
-          $scope.charsLeft = $scope.joke.substr($scope.joke.length);
-          $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ $scope.charsLeft;
+          var findLeader = '';
+          if($scope.joke.indexOf('<span class="win">') === -1) {
+            findLeader = $scope.joke.indexOf('<span class="leader">');
+          } else {
+            findLeader = $scope.joke.indexOf('<span class="leader">') - 25;
+          }
+
+          var indexCount = findLeader - $scope.correct.length;
+          var firstSlice = $scope.charsLeft.slice(0, indexCount);
+          var secondSlice = $scope.charsLeft.slice(indexCount + 1);
+
+          if(firstSlice.length !== (secondSlice.length - 1)) {
+            $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ firstSlice +'<span class="leader">'+ $scope.leadChar +'</span>'+ secondSlice;
+          } else {
+            $scope.joke = '<span class="win">'+ $scope.correct +'</span>'+ $scope.charsLeft;
+          }
+
           socket.emit('compare:inputs', checkInput);
         }
       } else {
+        //
+        //
+        // Need to check if <span class="leader"></span> is within
+        // the Joke STRING and account for it if it is.
+        //
+        //
         if($scope.correct) {
           $scope.joke = '<span class="win">'+ $scope.correct +'</span><span class="fail">'+ $scope.charsLeft +'</span>';
           $scope.sansLeader = $scope.joke;
