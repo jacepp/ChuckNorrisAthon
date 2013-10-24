@@ -62,6 +62,7 @@ angular.module('chuckNorrisAthonApp')
     });
 
     $scope.capture = function (playerInput) {
+      console.log($scope.playerInput)
       var checkInput = playerInput || '';
       var checkAgainst = $scope.jokeCheck;
       checkAgainst = checkAgainst.replace(/&(quot);/g, '"');
