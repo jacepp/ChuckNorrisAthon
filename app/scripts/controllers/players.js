@@ -5,7 +5,8 @@ angular.module('chuckNorrisAthonApp')
 
     socket.emit('player:list');
 
-    socket.on('game:players', function (data) {
+    socket.forward('game:players', $scope);
+    $scope.$on('socket:game:players', function (ev, data) {
       $scope.players = data || [];
 
       var check = false;
@@ -14,6 +15,7 @@ angular.module('chuckNorrisAthonApp')
           check = true;
         }
       });
+   
       if(!check) {
         $location.path('/');
       }

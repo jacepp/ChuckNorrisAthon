@@ -25,7 +25,8 @@ angular.module('chuckNorrisAthonApp')
 
     socket.forward('game:winner', $scope);
     $scope.$on('socket:game:winner', function (ev, data) {
-      $scope.joke = data +' just roundhouse kicked your face';
+      $scope.joke = data +' is the winner.';
+      setTimeout(1000);
       if(data == $scope.$parent.playerName) {
         socket.emit('game:reset');
       }
@@ -61,12 +62,16 @@ angular.module('chuckNorrisAthonApp')
     });
 
     $scope.capture = function (playerInput) {
-      console.log($scope.playerInput)
       var checkInput = playerInput || '';
       var checkAgainst = $scope.jokeCheck;
+      checkAgainst = checkAgainst.replace(/&(quot);/g, '"');
       var checkIfCorrect = checkAgainst.slice(0, checkInput.length);
 
+      console.log(checkInput)
+      console.log(checkAgainst)
+
       if(checkIfCorrect === checkInput) {
+        checkIfCorrect = checkIfCorrect.replace(/"/g, '&quot;');
         if(checkIfCorrect === $scope.jokeCheck) {
           socket.emit('player:winner');
         }
