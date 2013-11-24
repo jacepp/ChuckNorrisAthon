@@ -7,12 +7,12 @@
           h4 Leaderboard
           .col-md-4.wins
             h5.title Wins
-            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ wins.name }}</span> ({{ wins.wins }})
+            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadWins.name || 'bob' }}</span> ({{ leadWins.wins }})
           .col-md-4.streak
             h5.title Win Streak
-            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ streak.name }}</span> ({{ streak.total }})
+            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadStreak.name }}</span> ({{ leadStreak.streak }})
           .col-md-4.losses
             h5.title Losses
-            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ losses.name }}</span> ({{ losses.total }})
+            p.total <span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadLosses.name }}</span> ({{ leadLosses.losses }})
     .col-md-4
       ng-include(src="'views/partials/players.html'", ng-controller="PlayersCtrl")

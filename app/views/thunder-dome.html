@@ -8,15 +8,15 @@
           <h4>Leaderboard</h4>
           <div class="col-md-4 wins">
             <h5 class="title">Wins</h5>
-            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ wins.name }}</span> ({{ wins.wins }})</p>
+            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadWins.name || 'bob' }}</span> ({{ leadWins.wins }})</p>
           </div>
           <div class="col-md-4 streak">
             <h5 class="title">Win Streak</h5>
-            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ streak.name }}</span> ({{ streak.total }})</p>
+            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadStreak.name }}</span> ({{ leadStreak.streak }})</p>
           </div>
           <div class="col-md-4 losses">
             <h5 class="title">Losses</h5>
-            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ losses.name }}</span> ({{ losses.total }})</p>
+            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadLosses.name }}</span> ({{ leadLosses.losses }})</p>
           </div>
         </div>
       </div>

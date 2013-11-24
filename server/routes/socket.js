@@ -63,7 +63,6 @@ module.exports = function (socket) {
   socket.on('game:init', function () {
     (function loop() {
       if (io.sockets.clients().filter(filterNullValues).length < 2) {
-        console.log(io.sockets.clients().filter(filterNullValues).length)
         setTimeout(function () { loop() }, 1000);
       } else {
         if(!jokePersist) {
@@ -85,6 +84,8 @@ module.exports = function (socket) {
         if(winner === playerStreak || playerStreak === null) {
           socket.streak += 1;
           playerStreak = winner;
+        } else {
+          playerStreak = null;
         }
       } else {
         socket.losses += 1;

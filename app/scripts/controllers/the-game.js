@@ -10,9 +10,9 @@ angular.module('chuckNorrisAthonApp')
     socket.forward('game:new', $scope);
     $scope.$on('socket:game:new', function (ev, data) {
       data = JSON.parse(data);
-      $scope.joke = data.value.joke;
+      $scope.joke = data.value.joke.replace(/&(quot);/g, '"');
       $scope.sansLeader = $scope.joke;
-      $scope.jokeCheck = data.value.joke;
+      $scope.jokeCheck = data.value.joke.replace(/&(quot);/g, '"');
     });
 
     socket.forward('game:newcomer', $scope);
@@ -62,17 +62,12 @@ angular.module('chuckNorrisAthonApp')
     });
 
     $scope.capture = function (playerInput) {
-      console.log($scope.playerInput)
       var checkInput = playerInput || '';
       var checkAgainst = $scope.jokeCheck;
-      checkAgainst = checkAgainst.replace(/&(quot);/g, '"');
       var checkIfCorrect = checkAgainst.slice(0, checkInput.length);
 
-      console.log(checkInput)
-      console.log(checkAgainst)
-
       if(checkIfCorrect === checkInput) {
-        checkIfCorrect = checkIfCorrect.replace(/"/g, '&quot;');
+        checkIfCorrect = checkIfCorrect;
         if(checkIfCorrect === $scope.jokeCheck) {
           socket.emit('player:winner');
         }
