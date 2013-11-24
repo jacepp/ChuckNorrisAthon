@@ -1,0 +1,27 @@
+<div class="container thunder-dome">
+  <div class="row">
+    <div class="col-md-8">
+      <ng-include src="'views/partials/the-game.html'" ng-controller="TheGameCtrl"></ng-include>
+      <div class="container">
+        <div class="row leaderboard">
+          <h4>Leaderboard</h4>
+          <div class="col-md-4 wins">
+            <h5 class="title">Wins</h5>
+            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadWins.name || 'bob' }}</span> ({{ leadWins.wins }})</p>
+          </div>
+          <div class="col-md-4 streak">
+            <h5 class="title">Win Streak</h5>
+            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadStreak.name }}</span> ({{ leadStreak.streak }})</p>
+          </div>
+          <div class="col-md-4 losses">
+            <h5 class="title">Losses</h5>
+            <p class="total"><span class="player"><span class="glyphicon glyphicon-tower"></span> {{ leadLosses.name }}</span> ({{ leadLosses.losses }})</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <ng-include src="'views/partials/players.html'" ng-controller="PlayersCtrl"></ng-include>
+    </div>
+  </div>
+</div>

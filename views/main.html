@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="main title text-center">ChuckNorrisAthon (v2)</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">  
+      <form ng-submit="submit(playerName)" class="main form">
+        <input type="text" placeholder="Player name" autofocus="autofocus" required="required" ng-model="playerName" class="form-control">
+        <button type="submit" class="btn btn-block">Jump in</button>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <div ng-show="message" class="alert alert-danger">
+        <p ng-model="message">{{ message }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="main intro">Hello there, my name is Jace. This project originally started out as a class final that I decided to use a bunch of newer technologies for. Now it's my on going pet project. All of the jokes used in this game are provided by an awesome API I accidently stumbled upon, api.icndb.com. </p>
+      <p class="main intro">Also, here is a link to the <a href="https://github.com/jacepp/ChuckNorrisAthon/tree/v2">source code</a>. Feel free to report issues, fork the project, or give feedback. Hope you enjoy! </p>
+    </div>
+  </div>
+</div>
